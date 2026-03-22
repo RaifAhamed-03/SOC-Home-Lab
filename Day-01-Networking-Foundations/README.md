@@ -1,7 +1,7 @@
 # Day 1 – Networking Foundations for SOC Analysts
 
 ## Objective
-Build a solid foundation in **network traffic analysis** using **Wireshark** focusing on identifying normal network behavior versus potential security risks from a SOC analyst perspective.
+Develop practical skills in **network traffic analysis and threat detection** using Wireshark, focusing on identifying baseline behavior and detecting anomalies relevant to SOC operations.
 
 ## Key Learning Outcomes
 - Alert triage
@@ -42,6 +42,7 @@ Applied Wireshark filters to analyze traffic commonly monitored in SOC environme
 
 **DNS Traffic:**
 ![DNS Traffic Filter](screenshots/day1_dns_filter.png)
+*Shows DNS query and response behavior. Useful for detecting C2 communication and data exfiltration attempts.*
 
 **ICMP Traffic:**
 ![ICMP Traffic Filter](screenshots/day1_icmp_filter.png)
@@ -77,6 +78,7 @@ Applied Wireshark filters to analyze traffic commonly monitored in SOC environme
 - Connections to unusual or unknown external IPs
 
 ![Suspicious Traffic Evaluation](screenshots/day1_suspicious_traffic.png)
+*Observed repeated DNS queries and high-frequency ICMP traffic, which may indicate reconnaissance or potential data exfiltration behavior.*
 
 ---
 
@@ -99,3 +101,10 @@ Applied Wireshark filters to analyze traffic commonly monitored in SOC environme
 - SOC-style traffic analysis
 - Threat detection mindset
 - Documentation & reporting
+
+## Real SOC Use Case
+In a real SOC environment, this analysis helps:
+- Identify Command-and-Control (C2) communication via DNS
+- Detect scanning activity using ICMP or TCP SYN patterns
+- Investigate suspicious outbound connections
+- Support alert triage and incident investigation workflows
