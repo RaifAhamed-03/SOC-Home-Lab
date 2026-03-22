@@ -26,7 +26,7 @@ Build a solid foundation in **network traffic analysis** using **Wireshark** foc
 **Commands Used:** Command Line  
 `ping -n 20 8.8.8.8`
 
-![Command Line Ping Traffic](screenshots/ping.png)  
+![Command Line Ping Traffic](screenshots/Ping.png)  
 
 ![Live Packet Capture](screenshots/day1_live_capture.png)
 
