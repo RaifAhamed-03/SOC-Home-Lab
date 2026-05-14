@@ -1,4 +1,4 @@
-# Day 2 – SIEM Log Analysis for SOC Analysts (Wazuh)
+# SIEM Log Analysis for SOC Analysts (Wazuh)
 
 ## Objective
 Develop practical skills in security event monitoring and log analysis using Wazuh SIEM, focusing on detecting authentication anomalies, user account changes, and privilege escalation attempts relevant to SOC operations.

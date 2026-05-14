@@ -1,4 +1,4 @@
-# Day 1 – Networking Foundations for SOC Analysts
+# Networking Foundations for SOC Analysts
 
 ## Objective
 Develop practical skills in **network traffic analysis and threat detection** using Wireshark, focusing on identifying baseline behavior and detecting anomalies relevant to SOC operations.

@@ -1,4 +1,4 @@
-# Day 4 – Network Intrusion Detection with Suricata
+# Network Intrusion Detection with Suricata
 
 ## Objective
 Deploy and configure Suricata as an Intrusion Detection System (IDS) in your SOC lab, integrate it with Wazuh for centralized monitoring, and generate/analyze IDS alerts from simulated network attacks.

@@ -1,4 +1,4 @@
-# Day 3 – Advanced Detection Engineering with Wazuh
+# Advanced Detection Engineering with Wazuh
 
 ## Objective
 Develop advanced detection engineering skills by creating custom rules, integrating threat intelligence, and implementing automated active response for malicious file detection using Wazuh SIEM.

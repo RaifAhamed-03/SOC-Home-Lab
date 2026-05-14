@@ -1,4 +1,4 @@
-# Day 5 – Network Traffic Analysis with Zeek (formerly Bro)
+# Network Traffic Analysis with Zeek (formerly Bro)
 
 ## Objective
 Deploy Zeek as a network security monitoring (NSM) tool to analyze network traffic, extract valuable metadata, and integrate Zeek logs with Wazuh SIEM for enhanced threat detection and network visibility.
