@@ -28,21 +28,21 @@ Deploy Zeek network security monitoring, configure automated threat hunting capa
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                    Ubuntu Client (192.168.2.10)                 │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │  ● Zeek NSM (conn.log, dns.log, http.log)               │   │
-│  │  ● Hunting Utilities (jq, parallel, tmux)               │   │
-│  └─────────────────────────────────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │  ● Zeek NSM (conn.log, dns.log, http.log)               │    │
+│  │  ● Hunting Utilities (jq, parallel, tmux)               │    │
+│  └─────────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────────┘
                               ▲
                               │ Network Traffic Analysis
                               │
 ┌─────────────────────────────────────────────────────────────────┐
-│                      Network Traffic Sources                     │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │  ● DNS Queries (deepseek.com, google.com)               │   │
-│  │  ● External Connections (8.8.8.8, 90.130.70.73)        │   │
-│  │  ● Multicast Traffic (239.255.255.250)                  │   │
-│  └─────────────────────────────────────────────────────────┘   │
+│                      Network Traffic Sources                    │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │  ● DNS Queries (deepseek.com, google.com)               │    │
+│  │  ● External Connections (8.8.8.8, 90.130.70.73)         │    │
+│  │  ● Multicast Traffic (239.255.255.250)                  │    │
+│  └─────────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -61,7 +61,8 @@ sudo apt install parallel -y # Concurrent command execution
 sudo apt install tmux -y     # Terminal multiplexer
 ```
 
-**Screenshot:** `01_hunting_environment.png`
+**Hunting Environment:** 
+![Hunting Environment](screenshots/01_hunting_environment.png)
 *Terminal showing successful installation of jq, parallel, and tmux utilities.*
 
 | Utility | Version | Purpose |
@@ -95,7 +96,8 @@ tail -30 conn.log | awk '{printf "%25s | %-15s | %-15s | %-10s\n", $1, $3, $5, $
 | 1778423099.506000 | 192.168.2.100 | 8.8.8.8 | icmp |
 | 1778423060.803869 | 192.168.2.10 | 192.168.3.102 | tcp |
 
-**Screenshot:** `02_c2_beaconing.png`
+**C2 Beaconing Detection:** 
+![C2 Beaconing Detection](screenshots/02_c2_beaconing.png)
 *Zeek conn.log analysis showing connection patterns to external IP addresses (8.8.8.8).*
 
 ---
@@ -118,7 +120,8 @@ tail -30 conn.log | awk '{printf "%25s | %-15s | %-15s | %-10s\n", $1, $3, $5, $
 | 2026-05-11T09:25:49+0530 | fe80::7f1c:6d28:b674:6b3b | ff02::cc |
 | 2026-05-11T09:30:26+0530 | fe80::7f1c:6d28:b674:6b3b | ff02::cc |
 
-**Screenshot:** `03_data_exfiltration.png`
+**Data Exfiltration Detection:** 
+![Data Exfiltration Detection](screenshots/03_data_exfiltration.png)
 *Zeek logs showing external connections and multicast traffic patterns.*
 
 ---
@@ -142,7 +145,8 @@ tail -30 conn.log | awk '{printf "%25s | %-15s | %-15s | %-10s\n", $1, $3, $5, $
 | 1 | 192.168.2.10 | 107.23.218.37 | 80 |
 | 1 | 192.168.2.10 | 224.0.0.251 | 5333 |
 
-**Screenshot:** `04_lateral_movement.png`
+**Lateral Movement Detection:** 
+![Lateral Movement Detection](screenshots/04_lateral_movement.png)
 *Connection frequency analysis showing communication patterns between internal hosts and external destinations.*
 
 ---
@@ -165,7 +169,8 @@ sudo tail -f /opt/zeek/logs/current/dns.log | grep --line-buffered -E '[a-zA-Z0-
 
 **Observation:** The subdomain `hif-dliq` contains 10+ random-looking characters, which is characteristic of DNS tunneling for C2 communication or data exfiltration.
 
-**Screenshot:** `05_dns_tunneling.png`
+**DNS Tunneling Detection:** 
+![DNS Tunneling Detection](screenshots/05_dns_tunneling.png)
 *Real-time Zeek DNS log monitoring showing long, suspicious subdomain queries indicative of DNS tunneling.*
 
 ---
