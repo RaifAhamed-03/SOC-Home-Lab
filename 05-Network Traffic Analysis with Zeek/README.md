@@ -435,9 +435,6 @@ hydra -l root -P /usr/share/wordlists/rockyou.txt ssh://192.168.2.10 -t 1 -f
 **Zeek Detection:** SSH connection attempts logged
 **Wazuh Alert:** Rule 66001 – Zeek: SSH Connection
 
-**Attack Simulation:**
-![Attack Simulation](screenshots/07_zeek_attack_detection.png)
-*Kali Linux generating attacks with corresponding Zeek logs and Wazuh alerts.*
 
 ---
 
@@ -498,10 +495,6 @@ Created custom Wazuh rules to generate prioritized alerts from Zeek logs.
 sudo systemctl restart wazuh-manager
 ```
 
-**Wazuh Zeek Rules:**
-![Wazuh Zeek Rules](screenshots/08_wazuh_zeek_rules.png)
-*Custom Wazuh rules for Zeek detections with MITRE ATT&CK mapping.*
-
 ---
 
 ### 9. Verify Alerts in Wazuh Dashboard
@@ -517,10 +510,6 @@ Verified that Zeek alerts are visible in the Wazuh SIEM interface.
 | Suspicious User-Agent | `rule.id: 140101 AND rule.groups: web_attack` |
 | SSH Brute Force | `rule.id: 140103 OR rule.groups: brute_force` |
 | Zeek Alerts (Last Hour) | `rule.groups: zeek AND timestamp > "now-1h"` |
-
-**Wazuh Dashboard:**
-![Wazuh Dashboard](screenshots/09_wazuh_dashboard_zeek.png)
-*Wazuh dashboard displaying Zeek-generated alerts for port scans, suspicious user-agents, and SSH brute force attempts.*
 
 ---
 
@@ -631,9 +620,6 @@ Verified that Zeek alerts are visible in the Wazuh SIEM interface.
 | 4 | `04_zeek_cut.png` | zeek-cut command analysis |
 | 5 | `05_wazuh_zeek_config.png` | Wazuh agent configuration |
 | 6 | `06_zeek_custom_scripts.png` | Custom Zeek detection scripts |
-| 7 | `07_zeek_attack_detection.png` | Attack simulation results |
-| 8 | `08_wazuh_zeek_rules.png` | Custom Wazuh rules for Zeek |
-| 9 | `09_wazuh_dashboard_zeek.png` | Wazuh dashboard alerts |
 
 ---
 
