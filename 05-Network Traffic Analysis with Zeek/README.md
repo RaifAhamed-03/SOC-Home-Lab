@@ -273,32 +273,32 @@ Configured Wazuh agent to forward Zeek logs to the manager for centralized monit
 ```xml
 <!-- Zeek Connection Logs -->
 <localfile>
-    <log_format>syslog</log_format>
-    <location>/opt/zeek/logs/current/conn.log</location>
+    <log_format>json</log_format>
+    <location>/opt/zeek/spool/zeek-logger/conn.log</location>
 </localfile>
 
 <!-- Zeek DNS Logs -->
 <localfile>
-    <log_format>syslog</log_format>
-    <location>/opt/zeek/logs/current/dns.log</location>
+    <log_format>json</log_format>
+    <location>/opt/zeek/spool/zeek-logger/dns.log</location>
 </localfile>
 
 <!-- Zeek HTTP Logs -->
 <localfile>
-    <log_format>syslog</log_format>
-    <location>/opt/zeek/logs/current/http.log</location>
+    <log_format>json</log_format>
+    <location>/opt/zeek/spool/zeek-logger/http.log</location>
 </localfile>
 
 <!-- Zeek SSL Logs -->
 <localfile>
-    <log_format>syslog</log_format>
-    <location>/opt/zeek/logs/current/ssl.log</location>
+    <log_format>json</log_format>
+    <location>/opt/zeek/spool/zeek-logger/ssl.log</location>
 </localfile>
 
 <!-- Zeek Notice Logs -->
 <localfile>
-    <log_format>syslog</log_format>
-    <location>/opt/zeek/logs/current/notice.log</location>
+    <log_format>json</log_format>
+    <location>/opt/zeek/spool/zeek-logger/notice.log</location>
 </localfile>
 ```
 
@@ -405,6 +405,10 @@ sudo nmap -sS -p- 192.168.2.10
 **Zeek Detection:** Port_Scan notice generated
 **Wazuh Alert:** Rule 66004 – Zeek: Connection detail
 
+**Attack Simulation:**
+![Attack Simulation](screenshots/07_zeek_attack_detection.png)
+*Kali Linux generating Nmap port scan with Zeek detection and Wazuh alerts.*
+
 #### Attack 2: Suspicious User-Agent (Nikto)
 
 **From Kali Linux:**
@@ -415,91 +419,23 @@ curl -A "Nikto" http://192.168.2.10
 **Zeek Detection:** Suspicious_User_Agent notice
 **Wazuh Alert:** Rule 66005 – Zeek: HTTP detail
 
-#### Attack 3: Malicious DNS Query
-
-**From Kali Linux:**
-```bash
-dig longrandom.subdomain.suspicious.com @192.168.2.10
-```
-
-**Zeek Detection:** DNS query logged
-**Wazuh Alert:** Rule 66003 – Zeek: DNS Query
-
-#### Attack 4: SSH Brute Force Simulation
-
-**From Kali Linux:**
-```bash
-hydra -l root -P /usr/share/wordlists/rockyou.txt ssh://192.168.2.10 -t 1 -f
-```
-
-**Zeek Detection:** SSH connection attempts logged
-**Wazuh Alert:** Rule 66001 – Zeek: SSH Connection
-
-
 ---
 
 ### 8. Wazuh Custom Rules for Zeek Alerts
 
 Created custom Wazuh rules to generate prioritized alerts from Zeek logs.
 
-**Custom Rules (`/var/ossec/etc/rules/local_rules.xml`):**
-```xml
-<group name="zeek,ids,">
-    <!-- Zeek: Port Scan Detection -->
-    <rule id="140100" level="10" frequency="10" timeframe="60" ignore="60">
-        <if_sid>66004</if_sid>
-        <field name="data.message">Possible port scan</field>
-        <description>Zeek: Port scan detected from $(data.srcip)</description>
-        <mitre>
-            <id>T1046</id>
-        </mitre>
-        <group>port_scan,reconnaissance,</group>
-    </rule>
-
-    <!-- Zeek: Suspicious User-Agent -->
-    <rule id="140101" level="12">
-        <if_sid>66005</if_sid>
-        <field name="data.message">Suspicious user-agent</field>
-        <description>Zeek: Web scanner detected - $(data.message)</description>
-        <mitre>
-            <id>T1071</id>
-        </mitre>
-        <group>web_attack,reconnaissance,</group>
-    </rule>
-
-    <!-- Zeek: Malicious DNS Query -->
-    <rule id="140102" level="11">
-        <if_sid>66003</if_sid>
-        <field name="data.query">.*suspicious.*|.*malware.*|.*c2.*</field>
-        <description>Zeek: Suspicious DNS query detected: $(data.query)</description>
-        <mitre>
-            <id>T1572</id>
-        </mitre>
-        <group>dns,command_and_control,</group>
-    </rule>
-
-    <!-- Zeek: SSH Brute Force -->
-    <rule id="140103" level="13" frequency="10" timeframe="60" ignore="60">
-        <if_sid>66001</if_sid>
-        <description>Zeek: Possible SSH brute force from $(data.srcip)</description>
-        <mitre>
-            <id>T1110</id>
-        </mitre>
-        <group>authentication_failed,brute_force,</group>
-    </rule>
-</group>
-```
-
-**Restart Wazuh Manager:**
-```bash
-sudo systemctl restart wazuh-manager
-```
-
----
+**Custom Rules (`/var/ossec/etc/rules/zeek_rules.xml`):**
+![Wazuh Zeek Rules](screenshots/08_wazuh_zeek_rules.png)
+*Custom Wazuh rules for Zeek detections with MITRE ATT&CK mapping.*
 
 ### 9. Verify Alerts in Wazuh Dashboard
 
 Verified that Zeek alerts are visible in the Wazuh SIEM interface.
+
+**Wazuh Dashboard – Zeek Alerts:**
+![Wazuh Dashboard Zeek Alerts](screenshots/09_wazuh_dashboard_zeek.png)
+*Wazuh dashboard displaying Zeek-generated alerts for port scans, suspicious user-agents, and SSH brute force attempts.*
 
 **Wazuh Search Queries (DQL):**
 
@@ -620,6 +556,9 @@ Verified that Zeek alerts are visible in the Wazuh SIEM interface.
 | 4 | `04_zeek_cut.png` | zeek-cut command analysis |
 | 5 | `05_wazuh_zeek_config.png` | Wazuh agent configuration |
 | 6 | `06_zeek_custom_scripts.png` | Custom Zeek detection scripts |
+| 7 | `07_zeek_attack_detection.png` | Attack simulation from Kali Linux |
+| 8 | `08_wazuh_zeek_rules.png` | Custom Wazuh rules for Zeek |
+| 9 | `09_wazuh_dashboard_zeek.png` | Wazuh dashboard Zeek alerts |
 
 ---
 
