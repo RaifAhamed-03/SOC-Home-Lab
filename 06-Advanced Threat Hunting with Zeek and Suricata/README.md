@@ -122,7 +122,7 @@ tail -30 conn.log | awk '{printf "%25s | %-15s | %-15s | %-10s\n", $1, $3, $5, $
 #### Wazuh Dashboard Alert
 
 **C2 Beaconing Wazuh Alert:**
-![C2 Beaconing Wazuh Alert](screenshots/02_c2_beaconing_wazuh.png)
+![C2 Beaconing Wazuh Alert](screenshots/02_c2_beaconing_Wazuh.png)
 *Wazuh dashboard showing C2 beaconing detection alerts for rule 140200.*
 
 ---
