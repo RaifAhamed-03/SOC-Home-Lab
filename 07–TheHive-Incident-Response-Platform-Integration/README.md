@@ -65,11 +65,11 @@ Created a dedicated Ubuntu Server VM for TheHive deployment.
 | **Memory** | 2048 MB (2 GB) |
 | **Storage** | 25 GB |
 | **Network** | Host-only Adapter #3 (DMZ) |
-| **IP Address** | 192.168.3.120 |
+| **IP Address** | 192.168.3.106 |
 
 **TheHive VM Created:**
 ![TheHive VM Created](screenshots/01_thehive_vm_created.png)
-*Ubuntu Server installation complete with static IP 192.168.3.120.*
+*Ubuntu Server installation complete with static IP 192.168.3.106.*
 
 ---
 
@@ -340,7 +340,7 @@ Created an incident case based on Day 6 crypto mining detection alert (Rule 1402
 
 | # | Screenshot | Purpose |
 |---|------------|---------|
-| 1 | `01_thehive_vm_created.png` | Ubuntu VM with static IP 192.168.3.120 |
+| 1 | `01_thehive_vm_created.png` | Ubuntu VM with static IP 192.168.3.106 |
 | 2 | `02_docker_installed.png` | Docker and Docker Compose installed |
 | 3 | `03_thehive_deployed.png` | TheHive containers running |
 | 4 | `04_thehive_dashboard.png` | TheHive web interface dashboard |
