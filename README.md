@@ -1,2 +1,2 @@
 # SOC-Home-Lab
-Hands-on SOC Home Lab using Wazuh, pfSense, Kali Linux &amp; Ubuntu with real-world attack simulations
+Hands-on SOC Home Lab using Wazuh, TheHive, Suricata, Zeek, pfSense, Kali Linux &amp; Ubuntu with real-world attack simulations
